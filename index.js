@@ -1,4 +1,6 @@
 function namedQueue(processor, concurrency) {
+	concurrency = concurrency || 1
+
 	var waiting = []
 
 	var inProg = { }
@@ -9,7 +11,7 @@ function namedQueue(processor, concurrency) {
 	function update() {
 		if (count >= concurrency) return
 
-		var t = waiting.unshift()
+		var t = waiting.shift()
 		if (! t) return
 
 		if (inProg[t.task.id]) {
@@ -46,6 +48,10 @@ function namedQueue(processor, concurrency) {
 		}
 		waiting.unshift({ task: task, cb: cb })
 		setImmediate(update)
+	}
+
+	this.length = function() {
+		return waiting.length
 	}
 }
 
