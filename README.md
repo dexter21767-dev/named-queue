@@ -12,3 +12,11 @@ like async.queue, but tasks are named and de-duplicated
 #### `concurrency` - `Number` for maximum concurrent tasks
 
 ## Methods
+
+**WARNING** All tasks must have an **`.id`** property used to identify and avoid doing the same task more than once at a time
+
+### ``queue.push(task, cb)``
+
+### ``queue.unshift(task, cb)``
+
+### ``queue.length()``
