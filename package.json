@@ -1,6 +1,6 @@
 {
   "name": "named-queue",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "like async.queue, but you name the tasks so they're de-duplicated",
   "main": "index.js",
   "scripts": {
