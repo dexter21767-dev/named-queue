@@ -9,26 +9,28 @@ function namedQueue(processor, concurrency) {
 	//var paused = false
 
 	function update() {
-		if (count >= concurrency) return
 
-		var t = waiting.shift()
-		if (! t) return
-
-		if (inProg[t.task.id]) {
-			inProg[t.task.id].push(t.cb)
-			return
-		} else {
-			inProg[t.task.id] = [t.cb]
-			count++
-			processor(t.task, function() {
-				var args = arguments
-
-				count--
-				inProg[t.task.id].forEach(function(cb) { cb.apply(null, args) })
-				delete inProg[t.task.id]
-
-				setImmediate(update)
-			})
+		var t
+		while (waiting.length) {
+			if (count >= concurrency) return
+			t = waiting.shift()
+			
+			if (inProg[t.task.id]) {
+				inProg[t.task.id].push(t.cb)
+				return
+			} else {
+				inProg[t.task.id] = [t.cb]
+				count++
+				processor(t.task, function() {
+					var args = arguments
+	
+					count--
+					inProg[t.task.id].forEach(function(cb) { cb.apply(null, args) })
+					delete inProg[t.task.id]
+	
+					setImmediate(update)
+				})
+			}	
 		}
 	}
 
