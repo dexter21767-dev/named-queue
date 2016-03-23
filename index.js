@@ -9,8 +9,7 @@ function namedQueue(processor, concurrency) {
 	//var paused = false
 
 	function update() {
-		while (waiting.length) {
-			if (count >= concurrency) return
+		while (waiting.length && count < concurrency) (function() {
 			var t = waiting.shift()
 			
 			if (inProg[t.task.id]) {
@@ -29,7 +28,7 @@ function namedQueue(processor, concurrency) {
 					setImmediate(update)
 				})
 			}	
-		}
+		})()
 	}
 
 	this.push = function(task, cb) {
