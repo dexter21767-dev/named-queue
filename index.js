@@ -9,7 +9,6 @@ function namedQueue(processor, concurrency) {
 	//var paused = false
 
 	function update() {
-
 		var t
 		while (waiting.length) {
 			if (count >= concurrency) return
