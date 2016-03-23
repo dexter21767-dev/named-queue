@@ -9,10 +9,9 @@ function namedQueue(processor, concurrency) {
 	//var paused = false
 
 	function update() {
-		var t
 		while (waiting.length) {
 			if (count >= concurrency) return
-			t = waiting.shift()
+			var t = waiting.shift()
 			
 			if (inProg[t.task.id]) {
 				inProg[t.task.id].push(t.cb)
