@@ -9,7 +9,7 @@ like async.queue, but tasks are named and de-duplicated
 
 #### `processor` - `function(task, cb)`
 
-#### `concurrency` - `Number` for maximum concurrent tasks
+#### `concurrency` - `Number` for maximum concurrent tasks; can be `Infinity`
 
 ## Methods
 
