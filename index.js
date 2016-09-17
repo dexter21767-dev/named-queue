@@ -20,6 +20,8 @@ function namedQueue(processor, concurrency) {
 				count++
 				processor(t.task, function() {
 					var args = arguments
+
+					if (!inProg[t.task.id]) return // probably callback called twice
 	
 					count--
 					inProg[t.task.id].forEach(function(cb) { cb.apply(null, args) })
