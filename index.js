@@ -34,7 +34,7 @@ function namedQueue(processor, concurrency) {
 	}
 
 	this.push = function(task, cb) {
-		if (task.hasOwnProperty('id')) throw new Error('no task.id')
+		if (!task.hasOwnProperty('id')) throw new Error('no task.id')
 
 		if (inProg[task.id]) { 
 			inProg[task.id].push(cb)
